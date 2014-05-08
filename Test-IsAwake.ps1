@@ -1,15 +1,17 @@
 ﻿function Test-IsAwake() {
     param(
-        [Parameter(Mandatory=$true)][ValidateSet("PowerShell","SMB")][string]$Type,
+        [Parameter(Mandatory=$true)][ValidateSet("PowerShell","SMB","SSH")][string]$Type,
         [string]$ComputerName = $env:ComputerName,
         [int]$MaxTries = 30,
         [int]$RetryBuffer = 10,
-        [int]$Buffer = 20
+        [int]$Buffer = 20,
+        [string]$username,
+        [string]$password
     )
     
     try {
-
-        #initial wait while computer is maybe shutting down
+        . .\Invoke-SSHCommand.ps1
+        #inital wait while computer is maybe shutting down
         Start-Sleep -Seconds $Buffer
             
         $Count = 0
@@ -34,11 +36,24 @@
                     }
                 }
             }
+            "SSH" {
+                #check to make sure putty is installed, thow an error if its not
+                if (!(Test-Path -Path ".\PuttyFiles\plink.exe")) { throw "Putty is not installed on the server, Invoke-SSHCommand will not work." }
+                #check to make sure a username and password are supplied
+                if (!$username -and !$password) { throw "An SSH Test-IsAwake requires a username and password." }
+                #use Invoke-SSHCommand to see if the server is online
+                while (!(Invoke-SSHCommand -HostName $ComputerName -SSHCommand "df" -Username $username -Password $password -AcceptHostKey)){
+                    Start-Sleep -Seconds $RetryBuffer
+                    $Count ++
+                    if ($Count -ge $MaxTries) { throw "Could not SSH to $ComputerName after $MaxTries attempts." }
+                }
+            }
+            default { throw "$Type is not a valid type of test." }
         }
         
         #Make sure things are really up (buffer)
         Start-Sleep -Seconds $Buffer
-        Write-Host "$ComputerName should be up now..."
+        return $true
     }
     catch {
         Write-Warning $_
