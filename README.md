@@ -1,9 +1,9 @@
-powershell
+powershell.scripts
 ==========
 
 PowerShell Functions myself and coworkers have created for various sysadmin and devops tasks.
 
-Script Descriptions
+script.descriptions
 ======
 
 * [Create and Configure Network Load Balancer (ConfigureNLB.ps1)](https://github.com/alexinslc/powershell/blob/master/ConfigureNLB.ps1)
