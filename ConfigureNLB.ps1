@@ -1,4 +1,38 @@
-﻿function ConfigureNLB() {
+<#
+ 
+ .SYNOPSIS
+ Create and Configure Network Load Balancer 
+ 
+ .DESCRIPTION
+ This script creates and configures a Network Load Balancer.
+ 
+ .PARAMETER ComputerName
+ Required, String: The name of the computer to configure the NLB on. "YOURCOMPUTER"
+
+ .PARAMETER ClusterName
+ Required, String: The name of the NLB cluster.  "cluster01.contoso.com"
+
+ .PARAMETER Interface
+ Required, Interface Object: The interface object to setup the NLB on.
+
+ .PARAMETER VirtualIP
+ Required, The Virtual IP of the NLB to be configured. "192.168.0.50"
+
+ .PARAMETER SubnetMask
+ Required, The Subnetmask of the NLB to be configured. "255.255.255.0"
+
+ .PARAMETER Port
+ Required, Integer: The port number to run the NLB on. 8888
+
+ .EXAMPLE
+ ConfigureNLB -ComputerName "YOURCOMPUTER" -ClusterName "cluster01.contoso.com" -Interface $Interface -VirtualIP "192.168.0.50" -SubnetMask "255.255.255.0" -Port 8888
+ 
+  .NOTES
+ Author: Alex Lutz
+ Date: 5/13/2014
+
+ #>
+function ConfigureNLB() {
     param(
         [Parameter(Mandatory=$true)][string]$ComputerName = $env:ComputerName,
         [Parameter(Mandatory=$true)][string]$ClusterName,
