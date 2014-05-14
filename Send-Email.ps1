@@ -1,8 +1,40 @@
-﻿# .\Send-Email -to "you@yourdomain.com" -from "from@yourdomain.com" -subject "Default Send-Email Subject" -body "Default Send-Email Body"
+<#
+ 
+ .SYNOPSIS
+ Send an email via PowerShell.
+ 
+ .DESCRIPTION
+ Sends an email via PowerShell.
+ 
+ .PARAMETER smtpServer
+ Required, The SMTP relay server to use to send the email. 
+ 
+ .PARAMETER ComputerName
+ Optional, String: The name of the computer to include in the email. "YOURCOMPUTER"
 
+ .PARAMETER from
+ Optional, Who the email will be sent from. "no-reply@contoso.com"
+
+ .PARAMETER to
+ Optional, Who the email will be sent to. "jdoe@contoso.com"
+
+ .PARAMETER subject
+ Optional, The subject of the email message. "Test Mail Subject Line"
+
+ .PARAMETER body
+ Optional, The body of the email message. "Here is the body!"
+
+ .EXAMPLE
+ Send-Email -smtpServer "hub.contoso.com" -ComputerName $ComputerName -from "no-reply@contoso.com" -to "jdoe@contoso.com" -subject "Test Mail Subject" -body "Here is the body!"
+ 
+  .NOTES
+ Author: Alex Lutz
+ Date: 5/13/2014
+
+ #>
 function Send-Email(){
     param(
-        [Parameter(Mandatory=$true)][string]$smtp = "YOUREMAILSERVER.COM",
+        [Parameter(Mandatory=$true)][string]$smtpServer = "YOUREMAILSERVER.COM",
         [string]$ComputerName = $env:ComputerName,
         [string]$from = "from@yourdomain.com",
         [string]$to = "you@yourdomain.com",
@@ -11,8 +43,6 @@ function Send-Email(){
     )
     
     try {
-        #SMTP server name
-        $smtpServer = "YOUREMAILSERVER.COM"
 
         #Creating a Mail object
         $msg = new-object Net.Mail.MailMessage
