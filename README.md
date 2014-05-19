@@ -7,7 +7,7 @@ script.descriptions
 ======
 
 * [Create and Configure Network Load Balancer (ConfigureNLB.ps1)](https://github.com/alexinslc/powershell/blob/master/ConfigureNLB.ps1)
-* [Test if a computer is awake via Powershell OR SMB Share. (Test-IsAwake.ps1)](https://github.com/alexinslc/powershell/blob/master/Test-IsAwake.ps1)
+* [Test if a computer is awake via Powershell, SMB Share, or SSH. (Test-IsAwake.ps1)](https://github.com/alexinslc/powershell/blob/master/Test-IsAwake.ps1)
 * [Get an array of Network Adapters from a remote computer in binding order. (Get-NICBindings.ps1)](https://github.com/alexinslc/powershell/blob/master/Get-NICBindings.ps1)
 * [Set the binding order of Network Adapters (Set-NICBindings.ps1)]()
 * [Send an e-mail. (Send-Email.ps1)](https://github.com/alexinslc/powershell/blob/master/Send-Email.ps1)
