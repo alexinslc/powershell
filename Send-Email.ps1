@@ -1,5 +1,8 @@
 <#
  
+ TECHNICALLY, this is deprecated. If you're using PowerShell v4.0,
+ Use Send-MailMessage instead: http://technet.microsoft.com/en-us/library/hh849925.aspx
+ 
  .SYNOPSIS
  Send an email via PowerShell.
  
