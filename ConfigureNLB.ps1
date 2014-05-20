@@ -69,6 +69,6 @@ function ConfigureNLB() {
     }    
     
     } catch {
-
+      Write-Warning $_
     }
 }
