@@ -47,6 +47,7 @@ function ConfigureNLB() {
     Import-Module NetworkLoadBalancingClusters
 
     # If the cluster hasn't been created yet then create it
+    if (!($VirtualIP –as [ipaddress])) {Throw “$VirtualIP is an invalid IP Address”}
     if (!(Get-NlbCluster -HostName $VirtualIP -ErrorAction SilentlyContinue))
     {
         # Create Cluster 
