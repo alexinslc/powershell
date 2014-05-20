@@ -34,7 +34,7 @@
  #>
 function ConfigureNLB() {
     param(
-        [Parameter(Mandatory=$true)][string]$ComputerName = $env:ComputerName,
+        [Parameter(Mandatory=$false)][string]$ComputerName = $env:ComputerName,
         [Parameter(Mandatory=$true)][string]$ClusterName,
         [Parameter(Mandatory=$true)]$Interface,
         [Parameter(Mandatory=$true)][string]$VirtualIP,
