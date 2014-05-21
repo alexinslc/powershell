@@ -15,5 +15,5 @@ script.descriptions
 * [Set the Credentials on a Windows Service Using PowerShell](https://github.com/alexinslc/powershell/blob/master/Set-ServiceCreds.ps1)
 * [Add AD delegation rights to HyperV Hosts to allow SMB, Live Migration and Replication on a domain](https://github.com/alexinslc/powershell/blob/master/Set-ConstrainedDelegation.ps1)
 * [Add SMB Shares on HyperV Hosts to allow VMs to live on UNC Shares](https://github.com/alexinslc/powershell/blob/master/Set-SMBShares.ps1)
-* [Query a Microsoft SQL Server with PowerShell] (https://github.com/alexinslc/powershell/blob/master/Get-SQL.ps1)
+* [Query a Microsoft SQL Server with PowerShell](https://github.com/alexinslc/powershell/blob/master/Get-SQL.ps1)
 * More coming soon!
