@@ -22,9 +22,9 @@ foreach ($vm in $VMs) {
             $kvphash.add($name.Value,$data.Value)
         }
     }
-    # Save the guest's version
+    # Save the VM's version
     $icVersionGuest = $kvpHash.IntegrationServicesVersion
-    # $VMHost = ("`"" + $vm.ComputerName + "`"")
+    # Save the Hosts's version
     $Reg = [Microsoft.Win32.RegistryKey]::OpenRemoteBaseKey('LocalMachine', $vm.ComputerName)
     $RegKey= $Reg.OpenSubKey("SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Virtualization\\GuestInstaller\\Version")
     $icVersionHost = $RegKey.GetValue("Microsoft-Hyper-V-Guest-Installer-Win6x-Package")
