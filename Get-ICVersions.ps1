@@ -1,4 +1,3 @@
-# Test if the IC version is up to date
 # This script will provide a list to compare your Hyper-V Integration Component Versions (VM vs Host)
 # NOTE: This script only works with Hyper-V 2012 R2 and PowerShell v4
 
