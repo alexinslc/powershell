@@ -3,8 +3,8 @@ powershell.scripts
 
 PowerShell Functions myself and coworkers have created for various sysadmin and devops tasks.
 
-* [script.descriptions](#script.descriptions)
-* [script.todos](#script.todos)
+* [script.descriptions](https://github.com/alexinslc/powershell#scriptdescriptions)
+* [script.todos](https://github.com/alexinslc/powershell#scripttodos)
 
 script.descriptions
 ======
