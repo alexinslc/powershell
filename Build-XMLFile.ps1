@@ -16,8 +16,6 @@ function Build-XMLFile() {
 
     # choose a pretty formatting:
     $XmlWriter.Formatting = 'Indented'
-    $XmlWriter.Indentation = 1
-    $XmlWriter.IndentChar = "`t"
 
     # write the header
     $XmlWriter.WriteStartDocument()
@@ -47,7 +45,7 @@ function Build-XMLFile() {
 
     # Create "MajorUpgrade" Element and Set Attribute.
     $XmlWriter.WriteStartElement('MajorUpgrade')
-    $XmlWriter.WriteAttributeString('DowngradeErrorMessage', ('A newer version of ' + $AppName + 'is already installed.'))
+    $XmlWriter.WriteAttributeString('DowngradeErrorMessage', ('A newer version of ' + $AppName + ' is already installed.'))
     $XmlWriter.WriteEndElement() # Close MajorUpgrade
 
     # Create "MediaTemplate" Element
