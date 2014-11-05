@@ -1,14 +1,56 @@
 ﻿# This script / function will help you build an msi package using the WiX Toolset.
 # It contains functions for the following:
-# 1. Create folder structure for XML file using heat.exe.
-# 2. Create XML file for building the msi.
+# 1. Create folder structure of source code for XML file using heat.exe.
+# 2. Create basic XML template file for building the msi.
 # 3. Programatically Run Light and Candle and output the msi.
 
 
-# Function for running heat against a directory.
-function Build-FolderStructure() {
+# Function "wrapper" for heat.
+function Build-HeatXML() {
+    param (
+    [Parameter(mandatory=$true)][string]$SourceCodeDir, # Set this to the full path of the source directory
+    [Parameter(mandatory=$true)][ValidateSet("dir","file","project","website","perf","reg")][string]$HarvestType, #
+    [Parameter(mandatory=$true)][string]$HeatOpts # This should be a string of your heat options. Ex: "-cg -template fragment -sfrag -gg"
+    )
+    
     try {
+        # Add the WiX tools to the System PATH env.
+        $Current = (Get-ItemProperty 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Environment\').Path
+        $New = ($Current + ';C:\Program Files (x86)\WiX Toolset v3.9\bin')
+        Set-ItemProperty 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Environment\' -Name Path -Value $New
+        
+        # Run the heat command on the directory with the command arguments.
+        switch ($HarvestType) {
+            "dir" {
+                # Harvest a Directory
+                heat dir ".\My Files" -gg -sfrag -template:fragment -out directory.wxs
+            }
+            "file" {
+                # Harvest a File
+                heat file ".\My Files\File.dll" -ag -template:fragment -out file.wxs
+            }
 
+            "project" {
+                # Harvest a Visual Studio Project
+                heat project "MyProject.csproj" -pog:Binaries -ag -template:fragment -out project.wxs
+            }
+
+            "website" {
+                # Harvest a Website
+                heat website "Default Web Site" -template:fragment -out website.wxs
+            }
+
+            "perf" {
+                # Harvest Performance Counters
+                heat perf "My Category" -out perf.wxs
+            }
+
+            "reg" {
+                # Harvest a Registry File
+                heat reg registry.reg -out reg.wxs
+            }
+        }
+        heat $HarvestType $SourceCodeDir $Command
     }
 
     catch {
@@ -17,16 +59,20 @@ function Build-FolderStructure() {
 }
 
 # Function for building the WiX XML file.
-function Build-XMLFile() {
+function Build-TemplateXML() {
   param (
     [Parameter(mandatory=$true)][string]$Path,
     [Parameter(mandatory=$true)][string]$AppName,
     [Parameter(mandatory=$true)][string]$AppVersion,
     [Parameter(mandatory=$true)][string]$AppManufacturer,
-    [Parameter(mandatory=$false)][string]$InstallScope = 'perMachine'
+    [Parameter(mandatory=$false)][string]$InstallScope = 'perMachine',
+    [Parameter(mandatory=$true)][string]$HeatFile
   )
   try {
-    # get an XMLTextWriter to create the XML
+    # Get the information from the heat file.
+    $SourceFiles = Get-Content($HeatFile)
+
+    # Create a new XMLTextWriter object to start building the XML
     $XmlWriter = New-Object System.XMl.XmlTextWriter($Path,$Null)
 
     # choose a pretty formatting:
@@ -42,7 +88,6 @@ function Build-XMLFile() {
 
     # Create "Product" Element and Setup Attributes
     $UpgradeCode = [System.GUID]::NewGuid().ToString() # Generate GUID for $UpgradeCode
-    #$XmlWriter.WriteComment('List of machines')
     $XmlWriter.WriteStartElement('Product')
     $XmlWriter.WriteAttributeString('Id', '*')
     $XmlWriter.WriteAttributeString('Name', $AppName)
@@ -125,6 +170,10 @@ function Build-XMLFile() {
 # Function to put it all together and running both Light.exe and Candle.exe
 function Build-MSI() {
     try {
+        # First Run Light.exe
+
+        # Then Run Candle.exe
+
 
     }
 
