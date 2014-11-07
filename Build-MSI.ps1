@@ -8,9 +8,10 @@
 # Function "wrapper" for heat.
 function Build-HeatXML() {
     param (
-    [Parameter(mandatory=$true)][string]$SourceCodeDir, # Set this to the full path of the source directory
-    [Parameter(mandatory=$true)][ValidateSet("dir","file","project","website","perf","reg")][string]$HarvestType, #
-    [Parameter(mandatory=$true)][string]$HeatOpts # This should be a string of your heat options. Ex: "-cg -template fragment -sfrag -gg"
+    [Parameter(mandatory=$true)][string]$HarvestInput, # This should be the actual Harvest Type object, aka your source. ( Directory | File | Project | Website | Perf | Reg )
+    [Parameter(mandatory=$true)][ValidateSet("dir","file","project","website","perf","reg")][string]$HarvestType, # This is the type of harvest you will perform.
+    [Parameter(mandatory=$true)][string]$HeatOpts, # This should be a string of your heat options. Ex: "-cg -template fragment -sfrag -gg"
+    [Parameter(mandatory=$false)[string]$OutFileName # You can set this to whatever file name you would like. It will append .wsx to the end of the file name.
     )
     
     try {
@@ -23,34 +24,35 @@ function Build-HeatXML() {
         switch ($HarvestType) {
             "dir" {
                 # Harvest a Directory
-                heat dir ".\My Files" -gg -sfrag -template:fragment -out directory.wxs
+                if ($OutFileName) { heat dir $HarvestInput $HeatOpts -out $OutFileName.wxs }
+                else { heat dir $HarvestInput $HeatOpts -out directory.wxs }
             }
             "file" {
                 # Harvest a File
-                heat file ".\My Files\File.dll" -ag -template:fragment -out file.wxs
+                if ($OutFileName) { heat file $HarvestInput $HeatOpts -out $OutFileName.wxs }
+                else { heat file $HarvestInput $HeatOpts -out file.wxs }
             }
-
             "project" {
                 # Harvest a Visual Studio Project
-                heat project "MyProject.csproj" -pog:Binaries -ag -template:fragment -out project.wxs
+                if ($OutFileName) { heat project $HarvestInput $HeatOpts -out $OutFileName.wxs }
+                else { heat project $HarvestInput $HeatOpts -out project.wxs }
             }
-
             "website" {
                 # Harvest a Website
-                heat website "Default Web Site" -template:fragment -out website.wxs
+                if ($OutFileName) { heat website $HarvestInput $HeatOpts -out $OutFileName.wxs } 
+                else { heat website $HarvestInput $HeatOpts -out website.wxs }
             }
-
             "perf" {
                 # Harvest Performance Counters
-                heat perf "My Category" -out perf.wxs
+                if ($OutFileName) { heat perf $HarvestInput $HeatOpts -out $OutFileName.wxs }
+                else { heat perf $HarvestInput $HeatOpts -out perf.wxs }
             }
-
             "reg" {
                 # Harvest a Registry File
-                heat reg registry.reg -out reg.wxs
+                if ($OutFileName) { heat reg registry.reg $HeatOpts -out $OutFileName.wxs }
+                else { heat reg registry.reg $HeatOpts -out reg.wxs }
             }
         }
-        heat $HarvestType $SourceCodeDir $Command
     }
 
     catch {
