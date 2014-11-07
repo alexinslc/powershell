@@ -4,14 +4,13 @@
 # 2. Create basic XML template file for building the msi.
 # 3. Programatically Run Light and Candle and output the msi.
 
-
 # Function "wrapper" for heat.
 function Build-HeatXML() {
     param (
     [Parameter(mandatory=$true)][string]$HarvestInput, # This should be the actual Harvest Type object, aka your source. ( Directory | File | Project | Website | Perf | Reg )
     [Parameter(mandatory=$true)][ValidateSet("dir","file","project","website","perf","reg")][string]$HarvestType, # This is the type of harvest you will perform.
     [Parameter(mandatory=$true)][string]$HeatOpts, # This should be a string of your heat options. Ex: "-cg -template fragment -sfrag -gg"
-    [Parameter(mandatory=$false)[string]$OutFileName # You can set this to whatever file name you would like. It will append .wsx to the end of the file name.
+    [Parameter(mandatory=$false)][string]$OutFileName # You can set this to whatever file name you would like. It will append .wsx to the end of the file name.
     )
     
     try {
@@ -20,11 +19,12 @@ function Build-HeatXML() {
         $New = ($Current + ';C:\Program Files (x86)\WiX Toolset v3.9\bin')
         Set-ItemProperty 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Environment\' -Name Path -Value $New
         
+        $CurrentDir = pwd
         # Run the heat command on the directory with the command arguments.
         switch ($HarvestType) {
             "dir" {
                 # Harvest a Directory
-                if ($OutFileName) { heat dir $HarvestInput $HeatOpts -out $OutFileName.wxs }
+                if ($OutFileName) { heat dir $HarvestInput $HeatOpts -out $CurrentDir$OutFileName.wxs }
                 else { heat dir $HarvestInput $HeatOpts -out directory.wxs }
             }
             "file" {
@@ -168,15 +168,16 @@ function Build-TemplateXML() {
   }
 }
 
-
-# Function to put it all together and running both Light.exe and Candle.exe
+# Function to run both Candle.exe and Light.exe
 function Build-MSI() {
+    param (
+        [Parameter(mandatory=$true)][string]$FileName # This should be the file name of your .wxs file.
+    )
     try {
-        # First Run Light.exe
-
-        # Then Run Candle.exe
-
-
+        # First Run Candle.exe (This is the WiX compiler.)
+        candle $FileName.wsx
+        # Then Run Light.exe (This is the WiX Linker which generates the final installer.)
+        light $FileName.wixobj
     }
 
     catch {
@@ -184,3 +185,35 @@ function Build-MSI() {
     }
 }
 
+# Start Menu 
+Write-Host "========="
+Write-Host "Posh-MSI"
+Write-Host "========="
+Write-Host " "
+
+# Ask for information regarding the heat generated file.
+Write-Host "We need to create a heat.exe generated file to add to the Template XML file..."
+$HarvestType = Read-Host "What type of harvest will you perform? Typically, people choose dir. ( dir | file | project | website | perf | reg )"
+Write-Host " "
+$HarvestInput = Read-Host "Please enter the full path of your source file(s). Something like C:\projects\myapp"
+Write-Host " "
+$HeatOpts = Read-Host "What options do you need your heat command to use? (Ex: -gg -cg ComponentGroup1 -template fragement)"
+Write-Host " "
+$OutFileName = Read-Host "Please enter the file name you would like to use for your heat-generated .wsx file. If nothing is specified, it will default to <HarvestType.wsx>"
+Write-Host " "
+Write-Host ("Executing heat.exe " + $HarvestType + " " + $HarvestInput + " " +  $HeatOpts + " " +  "-out " + $OutFileName + ".wxs!")
+# Execute the command!
+Build-HeatXML -HarvestType $HarvestType -HarvestInput $HarvestInput -HeatOpts $HeatOpts -OutFileName $OutFileName 
+
+# Ask for information for the basic template xml file.
+$HeatFile = Read-Host "Please enter the full path of your generated Heat File..."
+Write-Host " "
+$AppName = Read-Host "What is the name of your application"?
+Write-Host " "
+$Path = Read-Host "Where do you want to save the template XML?"
+Write-Host " "
+$AppVersion = Read-Host "What is the version of your application?"
+Write-Host " "
+$AppManufacturer = Read-Host "Who is the application manufacturer?"
+
+# Ask for information to build the msi.
