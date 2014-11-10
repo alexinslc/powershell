@@ -144,7 +144,10 @@ function Build-TemplateXML() {
     $XmlWriter.WriteAttributeString('Directory', 'INSTALLFOLDER')
     $XmlWriter.WriteStartElement('Component')
     $XmlWriter.WriteAttributeString('Id', 'ProductComponent')
+    $XmlWriter.WriteComment("This is where your file list from heat will go.")
+
     # This is where your files will go!
+    
     $XmlWriter.WriteEndElement() # Close Component
     $XmlWriter.WriteEndElement() # Close ComponentGroup
     $XmlWriter.WriteEndElement() # Close Fragment
