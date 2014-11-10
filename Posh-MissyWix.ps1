@@ -14,11 +14,6 @@ function Build-HeatXML() {
     )
     
     try {
-        # Add the WiX tools to the System PATH env.
-        $Current = (Get-ItemProperty 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Environment\').Path
-        $New = ($Current + ';C:\Program Files (x86)\WiX Toolset v3.9\bin')
-        Set-ItemProperty 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Environment\' -Name Path -Value $New
-        
         $CurrentDir = pwd
         # Run the heat command on the directory with the command arguments.
         switch ($HarvestType) {
@@ -188,10 +183,44 @@ function Build-MSI() {
 # Function to put it all together!
 function Posh-MSI() {
     try {
+        # Verify WiX ToolSet is installed!
+        $WixReg = "HKCU:\SOFTWARE\WiX"
+        $WixToolSetInstaller = "wix39.exe"
+        if (!(Get-Item $WixReg -ErrorAction SilentlyContinue)) {
+            Write-Warning "WiX ToolSet is not installed, attempting download."
+            # Install WiX!
+            $Source = "https://wix.codeplex.com/downloads/get/925661"
+            $Destination = Get-Location 
+            $Destination = ($Destination.Path + "\" + $WixToolSetInstaller)
+            Invoke-WebRequest $Source -OutFile $Destination
+            # Sadly (for now) you'll have to actually click Install
+            # TODO: Figure out how to automagically install this!
+            Write-Host -ForegroundColor Green "=============================================================="
+            Write-Host -ForegroundColor Green "Sadly, at this time, you'll need to actually click install"
+            Write-Host -ForegroundColor Green "within the Installer program. Please click INSTALL!"
+            Write-Host -ForegroundColor Green "Opening the WiX ToolSet installer..."
+            Write-Host -ForegroundColor Green "=============================================================="
+            # Give user time to read the message.
+            Start-Sleep 7
+            # Open the WiX ToolSet Installer.
+            .\wix39.exe
+            # Allow user to wait until install is complete.
+            Read-Host "Please press the <ENTER KEY> once the installation is complete" > $null
+        }
+        else { 
+            Write-Host "WiX ToolSet seems to be installed."
+        }
+        
+        # Add the WiX tools to the System PATH env.
+        $Current = (Get-ItemProperty 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Environment\').Path
+        $New = ($Current + ';C:\Program Files (x86)\WiX Toolset v3.9\bin')
+        Set-ItemProperty 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Environment\' -Name Path -Value $New
+        Write-Host "WiX ToolSet added to System PATH env."
+
         # Start le Questions
-        Write-Host "========="
-        Write-Host "Posh-MSI"
-        Write-Host "========="
+        Write-Host -ForegroundColor Green "====================="
+        Write-Host -ForegroundColor Green "PowerShell Missy WiX"
+        Write-Host -ForegroundColor Green "====================="
         Write-Host " "
 
         # Ask for information regarding the heat generated file.
