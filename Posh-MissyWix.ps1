@@ -185,35 +185,50 @@ function Build-MSI() {
     }
 }
 
-# Start Menu 
-Write-Host "========="
-Write-Host "Posh-MSI"
-Write-Host "========="
-Write-Host " "
+# Function to put it all together!
+function Posh-MSI() {
+    try {
+        # Start le Questions
+        Write-Host "========="
+        Write-Host "Posh-MSI"
+        Write-Host "========="
+        Write-Host " "
 
-# Ask for information regarding the heat generated file.
-Write-Host "We need to create a heat.exe generated file to add to the Template XML file..."
-$HarvestType = Read-Host "What type of harvest will you perform? Typically, people choose dir. ( dir | file | project | website | perf | reg )"
-Write-Host " "
-$HarvestInput = Read-Host "Please enter the full path of your source file(s). Something like C:\projects\myapp"
-Write-Host " "
-$HeatOpts = Read-Host "What options do you need your heat command to use? (Ex: -gg -cg ComponentGroup1 -template fragement)"
-Write-Host " "
-$OutFileName = Read-Host "Please enter the file name you would like to use for your heat-generated .wsx file. If nothing is specified, it will default to <HarvestType.wsx>"
-Write-Host " "
-Write-Host ("Executing heat.exe " + $HarvestType + " " + $HarvestInput + " " +  $HeatOpts + " " +  "-out " + $OutFileName + ".wxs!")
-# Execute the command!
-Build-HeatXML -HarvestType $HarvestType -HarvestInput $HarvestInput -HeatOpts $HeatOpts -OutFileName $OutFileName 
+        # Ask for information regarding the heat generated file.
+        Write-Host "We need to create a heat.exe generated file to add to the Template XML file..."
+        $HarvestType = Read-Host "What type of harvest will you perform? Typically, people choose dir. ( dir | file | project | website | perf | reg )"
+        Write-Host " "
+        $HarvestInput = Read-Host "Please enter the full path of your source file(s). Something like C:\projects\myapp"
+        Write-Host " "
+        $HeatOpts = Read-Host "What options do you need your heat command to use? (Ex: -gg -cg ComponentGroup1 -template fragement)"
+        Write-Host " "
+        $OutFileName = Read-Host "Please enter the file name you would like to use for your heat-generated .wsx file. If nothing is specified, it will default to <HarvestType.wsx>"
+        Write-Host " "
+        Write-Host ("Executing heat.exe " + $HarvestType + " " + $HarvestInput + " " +  $HeatOpts + " " +  "-out " + $OutFileName + ".wxs!")
+        # Execute the command!
+        Build-HeatXML -HarvestType $HarvestType -HarvestInput $HarvestInput -HeatOpts $HeatOpts -OutFileName $OutFileName 
 
-# Ask for information for the basic template xml file.
-$HeatFile = Read-Host "Please enter the full path of your generated Heat File..."
-Write-Host " "
-$AppName = Read-Host "What is the name of your application"?
-Write-Host " "
-$Path = Read-Host "Where do you want to save the template XML?"
-Write-Host " "
-$AppVersion = Read-Host "What is the version of your application?"
-Write-Host " "
-$AppManufacturer = Read-Host "Who is the application manufacturer?"
+        # Ask for information for the basic template xml file.
+        $HeatFile = Read-Host "Please enter the full path of your generated Heat File..."
+        Write-Host " "
+        $AppName = Read-Host "What is the name of your application"?
+        Write-Host " "
+        $Path = Read-Host "Where do you want to save the template XML?"
+        Write-Host " "
+        $AppVersion = Read-Host "What is the version of your application?"
+        Write-Host " "
+        $AppManufacturer = Read-Host "Who is the application manufacturer?"
 
-# Ask for information to build the msi.
+        # Ask for information to build the msi.
+        Write-Host " "
+        $FileName = Read-Host "What is the name of your .wsx file? (Do NOT include file extension!)"
+        # Build the msi using candle and light.
+        Write-Host ("Building the " + $FileName + ".msi.")
+        Build-MSI -FileName $FileName
+        $CurrentDir = pwd
+        Write-Host ("You should find your final " + $FileName + ".msi in the " + $CurrentDir + " directory.")
+    }
+    catch {
+        Write-Warning $_
+    }
+}
