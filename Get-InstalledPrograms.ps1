@@ -23,7 +23,7 @@ Get-InstalledPrograms -ComputerName "MyComputer" -ProgramName "MyProgram" -Arch 
 Get-InstalledPrograms -ComputerName "MyComputer" -ProgramName "MyProgram" -Arch x64
 
 # Get the specified program's version on both architectures.
-Get-InstalledPrograms -ComputerName "MyComputer" -ProgramName "MyProgram" -Arch x64
+Get-InstalledPrograms -ComputerName "MyComputer" -ProgramName "MyProgram" -Arch All
 
 #>
 
