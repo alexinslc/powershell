@@ -38,17 +38,22 @@ function Get-InstalledPrograms() {
         if ($ProgramName) {
             $Scriptblock = {
                 param($ProgramName,$Reg,$Reg64,$Arch)
-                # Check for x64 Installed Program.
+                $cmd = Get-ItemProperty $Reg | Where-Object -Property DisplayName -EQ $ProgramName | Select-Object DisplayName, DisplayVersion | Format-Table -AutoSize
+                $cmd64 = Get-ItemProperty $Reg64 | Where-Object -Property DisplayName -EQ $ProgramName | Select-Object DisplayName, DisplayVersion | Format-Table -AutoSize
                 switch ($Arch) {
-                    "x32" { Get-ItemProperty $Reg | Where-Object -Property DisplayName -EQ $ProgramName | Select-Object DisplayName, DisplayVersion | Format-Table -AutoSize }
-                    "x64" { Get-ItemProperty $Reg64 | Where-Object -Property DisplayName -EQ $ProgramName | Select-Object DisplayName, DisplayVersion | Format-Table -AutoSize }
+                    "x32" { 
+                        if ($cmd) { $cmd } else { Write-Warning ($ProgramName + " was not found with " + $Arch + " architecture.") } 
+                    }
+                    "x64" {
+                        if ($cmd64) { $cmd64 } else { Write-Warning ($ProgramName + " was not found with " + $Arch + " architecture.") }
+                    }
                     "All" {
                         Write-Host " "
                         Write-Host "---------------------x32 Apps---------------------"
-                        Get-ItemProperty $Reg | Where-Object -Property DisplayName -EQ $ProgramName | Select-Object DisplayName, DisplayVersion | Format-Table -AutoSize
+                        if ($cmd) { $cmd } else { Write-Warning ($ProgramName + " was not found with " + $Arch + " architecture.") }
                         Write-Host "---------------------x64 Apps---------------------"
                         Write-Host " "
-                        Get-ItemProperty $Reg64 | Where-Object -Property DisplayName -EQ $ProgramName | Select-Object DisplayName, DisplayVersion | Format-Table -AutoSize
+                        if ($cmd64) { $cmd64 } else { Write-Warning ($ProgramName + " was not found with " + $Arch + " architecture.") }
                     }
                 }
             }
@@ -59,16 +64,18 @@ function Get-InstalledPrograms() {
             $Scriptblock = {
                 param($Reg,$Reg64,$Arch)
                # Switch on Application Architecture.
+               $cmd = Get-ItemProperty $Reg | Select-Object DisplayName, DisplayVersion | Format-Table -AutoSize
+               $cmd64 = Get-ItemProperty $Reg64 | Select-Object DisplayName, DisplayVersion | Format-Table -AutoSize
                 switch ($Arch) {
-                    "x32" { Get-ItemProperty $Reg | Select-Object DisplayName, DisplayVersion | Format-Table -AutoSize }
-                    "x64" { Get-ItemProperty $Reg64 | Select-Object DisplayName, DisplayVersion | Format-Table -AutoSize }
+                    "x32" { $cmd }
+                    "x64" { $cmd64 }
                     "All" {
                         Write-Host " "
                         Write-Host "---------------------x32 Apps---------------------"
-                        Get-ItemProperty $Reg | Select-Object DisplayName, DisplayVersion | Format-Table -AutoSize
+                        $cmd
                         Write-Host "---------------------x64 Apps---------------------"
                         Write-Host " "
-                        Get-ItemProperty $Reg64 | Select-Object DisplayName, DisplayVersion | Format-Table -AutoSize
+                        $cmd64
                     }
                 }
             }
