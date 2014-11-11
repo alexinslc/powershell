@@ -1,4 +1,6 @@
 ﻿<# 
+TODO: 
+  1. Return results as objects instead of text. 
 
 This script does the following: 
 1. Finds Installed Programs 
