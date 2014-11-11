@@ -8,26 +8,29 @@ This script does the following:
 
 .EXAMPLE
 # Get a list of all x32 installed programs and their versions.
-Get-InstalledPrograms -ComputerName "MyComputer"
+Get-InstalledPrograms -ComputerName "MyComputer" -Arch 32
 
 # Get a list of all x64 installed programs and their versions.
-Get-InstalledPrograms -ComputerName "MyComputer" -Checkx64
+Get-InstalledPrograms -ComputerName "MyComputer" -Arch x64
 
-# Get a list of all installed programs both x32/x64 and their versions.
-Get-InstalledPrograms -ComputerName "MyComputer" 
+# Get a list of all installed programs on both architectures and their versions.
+Get-InstalledPrograms -ComputerName "MyComputer" -Arch All
 
 # Get the specified x32 program's version.
-Get-InstalledPrograms -ComputerName "MyComputer" -ProgramName "MyProgram"
+Get-InstalledPrograms -ComputerName "MyComputer" -ProgramName "MyProgram" -Arch x32
 
 # Get the specified x64 program's version. 
-Get-InstalledPrograms -ComputerName "MyComputer" -ProgramName "MyProgram" -Checkx64
+Get-InstalledPrograms -ComputerName "MyComputer" -ProgramName "MyProgram" -Arch x64
+
+# Get the specified program's version on both architectures.
+Get-InstalledPrograms -ComputerName "MyComputer" -ProgramName "MyProgram" -Arch x64
 
 #>
 
 function Get-InstalledPrograms() {
     param(
          [Parameter(mandatory=$true)][string]$ComputerName,
-         [Parameter(mandatory=$false)][ValidateSet("x64","x32","All")]$Arch,
+         [Parameter(mandatory=$true)][ValidateSet("x64","x32","All")]$Arch,
          [Parameter(mandatory=$false)][string]$ProgramName
     )
     try {
