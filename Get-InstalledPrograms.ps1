@@ -13,6 +13,9 @@ Get-InstalledPrograms -ComputerName "MyComputer"
 # Get a list of all x64 installed programs and their versions.
 Get-InstalledPrograms -ComputerName "MyComputer" -Checkx64
 
+# Get a list of all installed programs both x32/x64 and their versions.
+Get-InstalledPrograms -ComputerName "MyComputer" 
+
 # Get the specified x32 program's version.
 Get-InstalledPrograms -ComputerName "MyComputer" -ProgramName "MyProgram"
 
@@ -24,42 +27,49 @@ Get-InstalledPrograms -ComputerName "MyComputer" -ProgramName "MyProgram" -Check
 function Get-InstalledPrograms() {
     param(
          [Parameter(mandatory=$true)][string]$ComputerName,
-         [Parameter(mandatory=$false)][bool]$Checkx64 = $false,
+         [Parameter(mandatory=$false)][ValidateSet("x64","x32","All")]$Arch,
          [Parameter(mandatory=$false)][string]$ProgramName
     )
     try {
         # Set some variables
         $Reg = "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\*"
-        $Regx64 = "HKLM:\Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\*"
+        $Reg64 = "HKLM:\Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\*"
         # Only check for the specified Installed Program.
         if ($ProgramName) {
             $Scriptblock = {
-                param($ProgramName,$Reg,$Regx64,$Checkx64)
+                param($ProgramName,$Reg,$Reg64,$Arch)
                 # Check for x64 Installed Program.
-                if ($Checkx64) {
-                    Get-ItemProperty $Regx64 | Where-Object -Property DisplayName -EQ $ProgramName | Sort-Object DisplayName, DisplayVersion | Format-Table -AutoSize
-                }
-                # Check for x32 Installed Program.
-                else {
-                    Get-ItemProperty $Reg | Where-Object -Property DisplayName -EQ $ProgramName | Sort-Object DisplayName, DisplayVersion | Format-Table -AutoSize
+                switch ($Arch) {
+                    "x32" { Get-ItemProperty $Reg | Where-Object -Property DisplayName -EQ $ProgramName | Select-Object DisplayName, DisplayVersion | Format-Table -AutoSize }
+                    "x64" { Get-ItemProperty $Reg64 | Where-Object -Property DisplayName -EQ $ProgramName | Select-Object DisplayName, DisplayVersion | Format-Table -AutoSize }
+                    "All" {
+                        Write-Host "--------x32--------"
+                        Get-ItemProperty $Reg | Where-Object -Property DisplayName -EQ $ProgramName | Select-Object DisplayName, DisplayVersion | Format-Table -AutoSize
+                        Write-Host "--------x64--------" 
+                        Get-ItemProperty $Reg64 | Where-Object -Property DisplayName -EQ $ProgramName | Select-Object DisplayName, DisplayVersion | Format-Table -AutoSize
+                    }
                 }
             }
-            Invoke-Command -ComputerName $ComputerName -ScriptBlock $Scriptblock -ArgumentList @($ProgramName,$Reg,$Regx64,$Checkx64)
+            Invoke-Command -ComputerName $ComputerName -ScriptBlock $Scriptblock -ArgumentList @($ProgramName,$Reg,$Reg64,$Arch)
         }
         # Check for ALL Installed Programs.
         else {
             $Scriptblock = {
-                param($Reg,$Regx64,$Checkx64)
-                # Check for x64 Installed Programs.
-                if ($Checkx64) {
-                    Get-ItemProperty $Regx64 | Select-Object DisplayName, DisplayVersion | Format-Table -AutoSize
-                }
-                # Check for x32 Installed Programs.
-                else {
-                    Get-ItemProperty $Reg | Select-Object DisplayName, DisplayVersion | Format-Table -AutoSize
-                }
+                param($Reg,$Reg64,$Arch)
+               # Switch on Application Architecture.
+                switch ($Arch) {
+                    "x32" { Get-ItemProperty $Reg | Select-Object DisplayName, DisplayVersion | Format-Table -AutoSize }
+                    "x64" { Get-ItemProperty $Reg64 | Select-Object DisplayName, DisplayVersion | Format-Table -AutoSize }
+                    "All" {
+                        Write-Host "--------x32--------"
+                        Write-Host " "
+                        Get-ItemProperty $Reg | Select-Object DisplayName, DisplayVersion | Format-Table -AutoSize
+                        Write-Host "--------x64--------"
+                        Write-Host " "
+                        Get-ItemProperty $Reg64 | Select-Object DisplayName, DisplayVersion | Format-Table -AutoSize
+                    }
             }
-            Invoke-Command -ComputerName $ComputerName -ScriptBlock $Scriptblock -ArgumentList @($Reg,$Regx64,$Checkx64)
+            Invoke-Command -ComputerName $ComputerName -ScriptBlock $Scriptblock -ArgumentList @($Reg,$Reg64,$Arch)
         }
     }
     catch {
