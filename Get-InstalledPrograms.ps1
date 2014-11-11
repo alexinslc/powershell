@@ -43,9 +43,11 @@ function Get-InstalledPrograms() {
                     "x32" { Get-ItemProperty $Reg | Where-Object -Property DisplayName -EQ $ProgramName | Select-Object DisplayName, DisplayVersion | Format-Table -AutoSize }
                     "x64" { Get-ItemProperty $Reg64 | Where-Object -Property DisplayName -EQ $ProgramName | Select-Object DisplayName, DisplayVersion | Format-Table -AutoSize }
                     "All" {
-                        Write-Host "--------x32--------"
+                        Write-Host " "
+                        Write-Host "---------------------x32 Apps---------------------"
                         Get-ItemProperty $Reg | Where-Object -Property DisplayName -EQ $ProgramName | Select-Object DisplayName, DisplayVersion | Format-Table -AutoSize
-                        Write-Host "--------x64--------" 
+                        Write-Host "---------------------x64 Apps---------------------"
+                        Write-Host " "
                         Get-ItemProperty $Reg64 | Where-Object -Property DisplayName -EQ $ProgramName | Select-Object DisplayName, DisplayVersion | Format-Table -AutoSize
                     }
                 }
@@ -61,10 +63,10 @@ function Get-InstalledPrograms() {
                     "x32" { Get-ItemProperty $Reg | Select-Object DisplayName, DisplayVersion | Format-Table -AutoSize }
                     "x64" { Get-ItemProperty $Reg64 | Select-Object DisplayName, DisplayVersion | Format-Table -AutoSize }
                     "All" {
-                        Write-Host "--------x32--------"
                         Write-Host " "
+                        Write-Host "---------------------x32 Apps---------------------"
                         Get-ItemProperty $Reg | Select-Object DisplayName, DisplayVersion | Format-Table -AutoSize
-                        Write-Host "--------x64--------"
+                        Write-Host "---------------------x64 Apps---------------------"
                         Write-Host " "
                         Get-ItemProperty $Reg64 | Select-Object DisplayName, DisplayVersion | Format-Table -AutoSize
                     }
