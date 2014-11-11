@@ -68,6 +68,7 @@ function Get-InstalledPrograms() {
                         Write-Host " "
                         Get-ItemProperty $Reg64 | Select-Object DisplayName, DisplayVersion | Format-Table -AutoSize
                     }
+                }
             }
             Invoke-Command -ComputerName $ComputerName -ScriptBlock $Scriptblock -ArgumentList @($Reg,$Reg64,$Arch)
         }
