@@ -34,7 +34,7 @@ function Get-InstalledPrograms() {
         # Only check for the specified Installed Program.
         if ($ProgramName) {
             $Scriptblock = {
-                param($ProgramName,$Reg,$Regx64)
+                param($ProgramName,$Reg,$Regx64,$Checkx64)
                 # Check for x64 Installed Program.
                 if ($Checkx64) {
                     Get-ItemProperty $Regx64 | Where-Object -Property DisplayName -EQ $ProgramName | Sort-Object DisplayName, DisplayVersion | Format-Table -AutoSize
@@ -44,14 +44,14 @@ function Get-InstalledPrograms() {
                     Get-ItemProperty $Reg | Where-Object -Property DisplayName -EQ $ProgramName | Sort-Object DisplayName, DisplayVersion | Format-Table -AutoSize
                 }
             }
-            Invoke-Command -ComputerName $ComputerName -ScriptBlock $Scriptblock -ArgumentList @($ProgramName,$Reg,$Regx64)
+            Invoke-Command -ComputerName $ComputerName -ScriptBlock $Scriptblock -ArgumentList @($ProgramName,$Reg,$Regx64,$Checkx64)
         }
         # Check for ALL Installed Programs.
         else {
             $Scriptblock = {
-                param($Reg,$Regx64)
+                param($Reg,$Regx64,$Checkx64)
                 # Check for x64 Installed Programs.
-                if ($Regx64) {
+                if ($Checkx64) {
                     Get-ItemProperty $Regx64 | Select-Object DisplayName, DisplayVersion | Format-Table -AutoSize
                 }
                 # Check for x32 Installed Programs.
@@ -59,7 +59,7 @@ function Get-InstalledPrograms() {
                     Get-ItemProperty $Reg | Select-Object DisplayName, DisplayVersion | Format-Table -AutoSize
                 }
             }
-            Invoke-Command -ComputerName $ComputerName -ScriptBlock $Scriptblock -ArgumentList @($Reg,$Regx64)
+            Invoke-Command -ComputerName $ComputerName -ScriptBlock $Scriptblock -ArgumentList @($Reg,$Regx64,$Checkx64)
         }
     }
     catch {
