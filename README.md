@@ -32,7 +32,7 @@ PowerShell scripts [@alexinslc](https://twitter.com/alexinslc)(me) and other cow
 [ConfigureNLB.ps1]: https://github.com/alexinslc/powershell/blob/master/ConfigureNLB.ps1
 [Test-IsAwake.ps1]: https://github.com/alexinslc/powershell/blob/master/Test-IsAwake.ps1
 [Get-NICBindings.ps1]: https://github.com/alexinslc/powershell/blob/master/Get-NICBindings.ps1
-[Set-NICBindings.ps1]: 
+[Set-NICBindings.ps1]: https://github.com/alexinslc/powershell/blob/master/Set-NICBindings.ps1
 [Send-Email.ps1]: https://github.com/alexinslc/powershell/blob/master/Send-Email.ps1
 [Set-ServiceCreds.ps1]: https://github.com/alexinslc/powershell/blob/master/Set-ServiceCreds.ps1
 [Set-ConstrainedDelegation.ps1]: https://github.com/alexinslc/powershell/blob/master/Set-ConstrainedDelegation.ps1
