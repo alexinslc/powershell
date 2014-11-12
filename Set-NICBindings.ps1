@@ -1,17 +1,17 @@
 ﻿<#
- 
+
  .SYNOPSIS
  Sets the NIC Bindings for a Server 2012 Host (local or remote)
- 
+
  .DESCRIPTION
 
  This script sets NIC's TCPIP Binding order according to the passed NetAdapter Objects in the order of the array.
  .PARAMETER ComputerName
 
  .EXAMPLE
- 
- .\Set-NICBindings.ps1 -ComputerName "LAB-NDRTEST.ndlab.local" -NewBinding @($nic1,$nic2)
- 
+
+ .\Set-NICBindings.ps1 -ComputerName "MyComputer" -NewBinding @($nic1,$nic2)
+
  #>
 
 function Set-NICBindings() {
@@ -21,7 +21,7 @@ param(
 )
     [array]$bindings = $null
     foreach ($bind in $NewBinding){
-    
+
         $bindings += ("\Device\" + $bind.DeviceID)
 
     }
