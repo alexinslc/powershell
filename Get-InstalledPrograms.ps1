@@ -37,8 +37,8 @@ function Get-InstalledPrograms() {
     )
     try {
         # Set some variables
-        $Reg = "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\*"
-        $Reg64 = "HKLM:\Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\*"
+        $Reg = "HKLM:\Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\*"
+        $Reg64 = "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\*"
         # Only check for the specified Installed Program.
         if ($ProgramName) {
             $Scriptblock = {
