@@ -8,10 +8,10 @@ PowerShell scripts [@alexinslc](https://twitter.com/alexinslc)(me) and other cow
 ## script.descriptions
 | Trending | Script                           | Description                                                          |
 |-----------|---------------------------------|----------------------------------------------------------------------|
-|  `New!`   | [Get-InstalledPrograms.ps1]     | Get a list of installed programs, versions, (x32, x64, or both.)     |
-|  `New!`   | [Posh-MissyWix.ps1]             | Create .msi files using the [WiX Toolset] and PowerShell.            |
-|  `Hot!`   | [Get-OrphanedVHDs.ps1]          | Find orphaned VHD(x) Files.                                          |
-|  `Hot!`   | [Invoke-SSHCommand.ps1]         | Run SSH Commands via PowerShell to Linux boxes.                      |
+|           | [Get-InstalledPrograms.ps1]     | Get a list of installed programs, versions, (x32, x64, or both.)     |
+|           | [Posh-MissyWix.ps1]             | Create .msi files using the [WiX Toolset] and PowerShell.            |
+|           | [Get-OrphanedVHDs.ps1]          | Find orphaned VHD(x) Files.                                          |
+|           | [Invoke-SSHCommand.ps1]         | Run SSH Commands via PowerShell to Linux boxes.                      |
 |           | [ConfigureNLB.ps1]              | Create and Configure MS Network Load Balancer.                       |
 |           | [Test-IsAwake.ps1]              | Test if a computer is awake via PowerShell, SMB Share, or SSH.       |
 |           | [Get-NICBindings.ps1]           | Get an array of Network Adapters (objects) in Binding order.         |
