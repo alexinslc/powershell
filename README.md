@@ -1,28 +1,38 @@
 # powershell.scripts
 PowerShell scripts [@alexinslc](https://twitter.com/alexinslc)(me) and other coworkers have created for various [#sysadmin](https://twitter.com/search?q=%23sysadmin) and [#devops](https://twitter.com/search?q=%23devops) tasks.  
-**Please NOTE**: Most of these scripts are verified using Windows 8 / 2012 R2 and PowerShell v4+
+
 
 * [script.descriptions](https://github.com/alexinslc/powershell#scriptdescriptions)
+* [older.script.descriptions](https://github.com/alexinslc/powershell#olderscriptdescriptions)
 * [script.todos](https://github.com/alexinslc/powershell#scripttodos)
 
+
 ## script.descriptions
-| Trending | Script                           | Description                                                          |
-|-----------|---------------------------------|----------------------------------------------------------------------|
-|           | [Get-InstalledPrograms.ps1]     | Get a list of installed programs, versions, (x32, x64, or both.)     |
-|           | [Posh-MissyWix.ps1]             | Create .msi files using the [WiX Toolset] and PowerShell.            |
-|           | [Get-OrphanedVHDs.ps1]          | Find orphaned VHD(x) Files.                                          |
-|           | [Invoke-SSHCommand.ps1]         | Run SSH Commands via PowerShell to Linux boxes.                      |
-|           | [ConfigureNLB.ps1]              | Create and Configure MS Network Load Balancer.                       |
-|           | [Test-IsAwake.ps1]              | Test if a computer is awake via PowerShell, SMB Share, or SSH.       |
-|           | [Get-NICBindings.ps1]           | Get an array of Network Adapters (objects) in Binding order.         |
-|           | [Set-NICBindings.ps1]           | Set the binding order of Network Adapters.                           |
-|           | [Send-Email.ps1]                | Send an e-mail. (For PowerShell v2)                                  |
-|           | [Set-ServiceCreds.ps1]          | Set the credentials on a Windows Service.                            |
-|           | [Set-ConstrainedDelegation.ps1] | Enable Hyper-V Host SMB, Live Migration, and Replication rights.     |
-|           | [Set-SMBShares.ps1]             | Add SMB Shares on Hyper-V Hosts to allow VMs to live on UNC shares.  |
-|           | [Get-SQL.ps1]                   | Query a MS SQL Server with PowerShell.                               |
-|           | [ConvertTo-MacAddress.ps1]      | Add a delimiter to raw MacAddress.                                   |
-|           | [Get-ICVersions.ps1]            | Get list of Integration Component Versions on Hyper-V 2012 +         |
+**Please NOTE**: Most of these scripts are verified using MacOS Big Sur, Windows 11, and PowerShell v7.2.1
+| Script                          | Description                                                                    |
+|---------------------------------|--------------------------------------------------------------------------------|
+| [Invoke-LocalDevSetup.ps1]      | Quick setup script for a laptop supports Windows/Mac and many package managers |
+
+
+## older.script.descriptions
+**Please NOTE**: These older scripts are verified using Windows 8 / 2012 R2 and PowerShell v4+ and I should probably test / refactor them.
+| Script                          | Description                                                          |
+|---------------------------------|----------------------------------------------------------------------|
+| [Get-InstalledPrograms.ps1]     | Get a list of installed programs, versions, (x32, x64, or both.)     |
+| [Posh-MissyWix.ps1]             | Create .msi files using the [WiX Toolset] and PowerShell.            |
+| [Get-OrphanedVHDs.ps1]          | Find orphaned VHD(x) Files.                                          |
+| [Invoke-SSHCommand.ps1]         | Run SSH Commands via PowerShell to Linux boxes.                      |
+| [ConfigureNLB.ps1]              | Create and Configure MS Network Load Balancer.                       |
+| [Test-IsAwake.ps1]              | Test if a computer is awake via PowerShell, SMB Share, or SSH.       |
+| [Get-NICBindings.ps1]           | Get an array of Network Adapters (objects) in Binding order.         |
+| [Set-NICBindings.ps1]           | Set the binding order of Network Adapters.                           |
+| [Send-Email.ps1]                | Send an e-mail. (For PowerShell v2)                                  |
+| [Set-ServiceCreds.ps1]          | Set the credentials on a Windows Service.                            |
+| [Set-ConstrainedDelegation.ps1] | Enable Hyper-V Host SMB, Live Migration, and Replication rights.     |
+| [Set-SMBShares.ps1]             | Add SMB Shares on Hyper-V Hosts to allow VMs to live on UNC shares.  |
+| [Get-SQL.ps1]                   | Query a MS SQL Server with PowerShell.                               |
+| [ConvertTo-MacAddress.ps1]      | Add a delimiter to raw MacAddress.                                   |
+| [Get-ICVersions.ps1]            | Get list of Integration Component Versions on Hyper-V 2012 +         |
 
 <!-- Links for the table -->
 [Get-InstalledPrograms.ps1]: https://github.com/alexinslc/powershell/blob/master/Get-InstalledPrograms.ps1
@@ -40,21 +50,4 @@ PowerShell scripts [@alexinslc](https://twitter.com/alexinslc)(me) and other cow
 [Get-SQL.ps1]: https://github.com/alexinslc/powershell/blob/master/Get-SQL.ps1
 [ConvertTo-MacAddress.ps1]: https://github.com/alexinslc/powershell/blob/master/ConvertTo-MacAddress.ps1
 [Get-ICVersions.ps1]: https://github.com/alexinslc/powershell/blob/master/Get-ICVersions.ps1
-
-## script.todos
-* Node.js based PowerShell script front-end "script-runner".
-* Ruby based PowerShell script front-end "script-runner".
-* PowerShell script for event / log searching across servers.
-* PowerShell script to login and logout as a specific user. (Simulate logon)
-* PowerShell scripts for various databases. (~~Microsoft SQL~~, MySQL, MongoDB, etc.)
-
-## api.scripts
-* PowerShell scripts for [PagerDuty](http://pagerduty.com).
-* PowerShell scripts for [Twitter](http://twitter.com). Work on [Posh-Tweet](https://github.com/alexinslc/poshtweet)
-* PowerShell scripts for [VictorOps](http://victorops.com).
-* PowerShell scripts for [Slack](http://slack.com).
-* PowerShell scripts for [New Relic](http://newrelic.com).
-* PowerShell scripts for [App Dynamics](http://appdynamics.com).
-* PowerShell scripts for [Windows Updates](http://www.update.microsoft.com/).
-* PowerShell scripts for [BigIP F5 LTM](https://f5.com/products/big-ip).
-* PowerShell scripts for [PushOver](https://pushover.net/).
+[Invoke-LocalDevSetup.ps1]: https://github.com/alexinslc/powershell/blob/master/Invoke-LocalDevSetup.ps1
