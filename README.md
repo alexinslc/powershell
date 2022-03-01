@@ -11,7 +11,7 @@ PowerShell scripts [@alexinslc](https://twitter.com/alexinslc)(me) and other cow
 **Please NOTE**: Most of these scripts are verified using MacOS Big Sur, Windows 11, and PowerShell v7.2.1
 | Script                          | Description                                                                    |
 |---------------------------------|--------------------------------------------------------------------------------|
-| [Invoke-LocalDevSetup.ps1]      | Quick setup script for a laptop supports Windows/Mac and many package managers |
+| [Invoke-LocalDevSetup.ps1]      | Quick setup script for a laptop supports Win/Mac and many package managers |
 
 
 ## older.script.descriptions
