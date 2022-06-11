@@ -35,19 +35,19 @@ PowerShell scripts [@alexinslc](https://twitter.com/alexinslc)(me) and other cow
 | [Get-ICVersions.ps1]            | Get list of Integration Component Versions on Hyper-V 2012 +         |
 
 <!-- Links for the table -->
-[Get-InstalledPrograms.ps1]: https://github.com/alexinslc/powershell/blob/master/Get-InstalledPrograms.ps1
-[Posh-MissyWix.ps1]: https://github.com/alexinslc/powershell/blob/master/Posh-MissyWix.ps1
-[Get-OrphanedVHDs.ps1]: https://github.com/alexinslc/powershell/blob/master/Get-OrphanedVHDs.ps1
-[Invoke-SSHCommand.ps1]: https://github.com/alexinslc/powershell/blob/master/Invoke-SSHCommand.ps1
-[ConfigureNLB.ps1]: https://github.com/alexinslc/powershell/blob/master/ConfigureNLB.ps1
-[Test-IsAwake.ps1]: https://github.com/alexinslc/powershell/blob/master/Test-IsAwake.ps1
-[Get-NICBindings.ps1]: https://github.com/alexinslc/powershell/blob/master/Get-NICBindings.ps1
-[Set-NICBindings.ps1]: https://github.com/alexinslc/powershell/blob/master/Set-NICBindings.ps1
-[Send-Email.ps1]: https://github.com/alexinslc/powershell/blob/master/Send-Email.ps1
-[Set-ServiceCreds.ps1]: https://github.com/alexinslc/powershell/blob/master/Set-ServiceCreds.ps1
-[Set-ConstrainedDelegation.ps1]: https://github.com/alexinslc/powershell/blob/master/Set-ConstrainedDelegation.ps1
-[Set-SMBShares.ps1]: https://github.com/alexinslc/powershell/blob/master/Set-SMBShares.ps1
-[Get-SQL.ps1]: https://github.com/alexinslc/powershell/blob/master/Get-SQL.ps1
-[ConvertTo-MacAddress.ps1]: https://github.com/alexinslc/powershell/blob/master/ConvertTo-MacAddress.ps1
-[Get-ICVersions.ps1]: https://github.com/alexinslc/powershell/blob/master/Get-ICVersions.ps1
+[Get-InstalledPrograms.ps1]: https://github.com/alexinslc/powershell/blob/master/archived-scripts/Get-InstalledPrograms.ps1
+[Posh-MissyWix.ps1]: https://github.com/alexinslc/powershell/blob/master/archived-scripts/Posh-MissyWix.ps1
+[Get-OrphanedVHDs.ps1]: https://github.com/alexinslc/powershell/blob/master/archived-scripts/Get-OrphanedVHDs.ps1
+[Invoke-SSHCommand.ps1]: https://github.com/alexinslc/powershell/blob/master/archived-scripts/Invoke-SSHCommand.ps1
+[ConfigureNLB.ps1]: https://github.com/alexinslc/powershell/blob/master/archived-scripts/ConfigureNLB.ps1
+[Test-IsAwake.ps1]: https://github.com/alexinslc/powershell/blob/master/archived-scripts/Test-IsAwake.ps1
+[Get-NICBindings.ps1]: https://github.com/alexinslc/powershell/blob/master/archived-scripts/Get-NICBindings.ps1
+[Set-NICBindings.ps1]: https://github.com/alexinslc/powershell/blob/master/archived-scripts/Set-NICBindings.ps1
+[Send-Email.ps1]: https://github.com/alexinslc/powershell/blob/master/archived-scripts/Send-Email.ps1
+[Set-ServiceCreds.ps1]: https://github.com/alexinslc/powershell/blob/master/archived-scripts/Set-ServiceCreds.ps1
+[Set-ConstrainedDelegation.ps1]: https://github.com/alexinslc/powershell/blob/master/archived-scripts/Set-ConstrainedDelegation.ps1
+[Set-SMBShares.ps1]: https://github.com/alexinslc/powershell/blob/master/archived-scripts/Set-SMBShares.ps1
+[Get-SQL.ps1]: https://github.com/alexinslc/powershell/blob/master/archived-scripts/Get-SQL.ps1
+[ConvertTo-MacAddress.ps1]: https://github.com/alexinslc/powershell/blob/master/archived-scripts/ConvertTo-MacAddress.ps1
+[Get-ICVersions.ps1]: https://github.com/alexinslc/powershell/blob/master/archived-scripts/Get-ICVersions.ps1
 [Invoke-DevSetup.ps1]: https://github.com/alexinslc/powershell/blob/master/Invoke-DevSetup.ps1
