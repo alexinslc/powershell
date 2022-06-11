@@ -11,7 +11,7 @@ PowerShell scripts [@alexinslc](https://twitter.com/alexinslc)(me) and other cow
 **Please NOTE**: Most of these scripts are verified using MacOS Big Sur, Windows 11, and PowerShell v7.2.1
 | Script                          | Description                                                                    |
 |---------------------------------|--------------------------------------------------------------------------------|
-| [Invoke-LocalDevSetup.ps1]      | Quick setup script for a laptop supports Win/Mac and many package managers |
+| [Invoke-DevSetup.ps1]      | Quick setup script for a laptop supports Win/Mac and many package managers |
 
 
 ## older.script.descriptions
@@ -50,4 +50,4 @@ PowerShell scripts [@alexinslc](https://twitter.com/alexinslc)(me) and other cow
 [Get-SQL.ps1]: https://github.com/alexinslc/powershell/blob/master/Get-SQL.ps1
 [ConvertTo-MacAddress.ps1]: https://github.com/alexinslc/powershell/blob/master/ConvertTo-MacAddress.ps1
 [Get-ICVersions.ps1]: https://github.com/alexinslc/powershell/blob/master/Get-ICVersions.ps1
-[Invoke-LocalDevSetup.ps1]: https://github.com/alexinslc/powershell/blob/master/Invoke-LocalDevSetup.ps1
+[Invoke-DevSetup.ps1]: https://github.com/alexinslc/powershell/blob/master/Invoke-DevSetup.ps1
